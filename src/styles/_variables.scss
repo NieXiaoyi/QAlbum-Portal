@@ -1,0 +1,108 @@
+// ============================================
+// QAlbum - Warm Family Theme Variables
+// ============================================
+
+// -------- Color Palette --------
+$primary-color: #E8A87C;       // Warm peach - primary brand color
+$primary-dark: #D4885E;        // Darker peach for hover/active states
+$primary-light: #F5CBA7;       // Light peach for backgrounds
+
+$secondary-color: #85C1E9;    // Soft sky blue - secondary accent
+$secondary-dark: #5DADE2;
+$secondary-light: #D4E6F1;
+
+$accent-color: #F9E79F;       // Warm yellow accent
+$accent-dark: #F7DC6F;
+
+// Neutral colors
+$white: #FFFFFF;
+$cream: #FDF8F3;              // Warm white for page backgrounds
+$gray-lightest: #F5F0EB;
+$gray-light: #E8E0D8;
+$gray-medium: #B0A89E;
+$gray-dark: #7A7268;
+$gray-darker: #4A443E;
+$near-black: #2C2824;
+
+// Semantic colors
+$danger-color: #E74C3C;
+$warning-color: #F39C12;
+$success-color: #27AE60;
+$info-color: #3498DB;
+
+// Overlay
+$overlay-color: rgba(44, 40, 36, 0.6);
+
+// -------- Typography --------
+$font-family-base: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-family-heading: 'Noto Serif SC', 'Source Han Serif SC', Georgia, serif;
+$font-family-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+
+$font-size-xs: 0.75rem;      // 12px
+$font-size-sm: 0.875rem;     // 14px
+$font-size-base: 1rem;       // 16px
+$font-size-md: 1.125rem;     // 18px
+$font-size-lg: 1.25rem;      // 20px
+$font-size-xl: 1.5rem;       // 24px
+$font-size-xxl: 2rem;        // 32px
+$font-size-hero: 2.5rem;     // 40px
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.2;
+$line-height-base: 1.6;
+$line-height-relaxed: 1.8;
+
+// -------- Spacing --------
+$spacing-unit: 0.25rem;
+$spacing-xs: 0.25rem;    // 4px
+$spacing-sm: 0.5rem;     // 8px
+$spacing-md: 1rem;       // 16px
+$spacing-lg: 1.5rem;     // 24px
+$spacing-xl: 2rem;       // 32px
+$spacing-xxl: 3rem;      // 48px
+$spacing-xxxl: 4rem;     // 64px
+
+// -------- Border Radius --------
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-round: 50%;
+$border-radius-pill: 9999px;
+
+// -------- Shadows --------
+$shadow-sm: 0 1px 3px rgba(44, 40, 36, 0.08);
+$shadow-md: 0 4px 12px rgba(44, 40, 36, 0.1);
+$shadow-lg: 0 8px 24px rgba(44, 40, 36, 0.12);
+$shadow-xl: 0 12px 36px rgba(44, 40, 36, 0.16);
+$shadow-inner: inset 0 2px 4px rgba(44, 40, 36, 0.06);
+
+// -------- Breakpoints (mobile-first) --------
+$breakpoint-sm: 576px;    // Small devices
+$breakpoint-md: 768px;    // Medium devices (tablets)
+$breakpoint-lg: 992px;    // Large devices (desktop)
+$breakpoint-xl: 1200px;   // Extra large devices
+$breakpoint-xxl: 1400px;  // Ultra wide
+
+// -------- Layout --------
+$header-height: 60px;
+$sidebar-width: 280px;
+$content-max-width: 1200px;
+
+// -------- Z-index Layers --------
+$z-index-dropdown: 100;
+$z-index-sticky: 200;
+$z-index-header: 300;
+$z-index-overlay: 400;
+$z-index-modal: 500;
+$z-index-toast: 600;
+
+// -------- Transitions --------
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;
+$transition-slow: 400ms ease;

@@ -1,0 +1,148 @@
+/* =============================================
+   QAlbum - Global Styles
+   Warm Family Theme Photo Album Application
+   ============================================= */
+
+// -------- Theme Configuration --------
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+// -------- CSS Reset --------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-base;
+  color: $near-black;
+  background-color: $cream;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+// -------- Typography --------
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $gray-darker;
+}
+
+h1 { font-size: $font-size-hero; }
+h2 { font-size: $font-size-xxl; }
+h3 { font-size: $font-size-xl; }
+h4 { font-size: $font-size-lg; }
+h5 { font-size: $font-size-md; }
+h6 { font-size: $font-size-base; }
+
+p {
+  margin-bottom: $spacing-md;
+}
+
+a {
+  color: $primary-dark;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-color;
+    text-decoration: underline;
+  }
+}
+
+// -------- Lists --------
+ul, ol {
+  list-style: none;
+}
+
+// -------- Images --------
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// -------- Buttons (base reset) --------
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  color: inherit;
+}
+
+// -------- Inputs (base reset) --------
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: 1px solid $gray-light;
+  border-radius: $border-radius-md;
+  padding: $spacing-sm $spacing-md;
+  background-color: $white;
+  outline: none;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+  }
+
+  &::placeholder {
+    color: $gray-medium;
+  }
+}
+
+// -------- Scrollbar Styling --------
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-lightest;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray-medium;
+  border-radius: $border-radius-pill;
+
+  &:hover {
+    background: $gray-dark;
+  }
+}
+
+// -------- Utility Classes --------
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.sr-only {
+  @include sr-only;
+}
+
+// -------- App Shell --------
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

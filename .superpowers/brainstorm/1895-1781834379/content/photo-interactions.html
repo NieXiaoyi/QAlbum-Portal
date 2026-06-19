@@ -1,0 +1,145 @@
+<h2>照片交互流程</h2>
+<p class="subtitle">查看大图、上传照片、跨相册移动</p>
+
+<div class="section">
+  <h3>① 照片大图查看</h3>
+  <div style="display:flex;justify-content:center;margin:12px 0;">
+    <div style="max-width:360px;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);background:#FFFCF8;padding:0;">
+      <!-- Dark viewer -->
+      <div style="background:#2A2420;padding:16px;position:relative;">
+        <!-- Top bar -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="color:white;font-size:14px;">‹ 返回</div>
+          <div style="color:white;font-size:14px;">2026 年 2 月 10 日</div>
+          <div style="display:flex;gap:12px;">
+            <span style="color:white;font-size:16px;cursor:pointer;">↕</span>
+            <span style="color:white;font-size:16px;cursor:pointer;">🗑️</span>
+          </div>
+        </div>
+        <!-- Photo area -->
+        <div style="aspect-ratio:4/3;background:#D4BFA8;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:40px;opacity:0.5;">🖼️</span>
+        </div>
+        <!-- Bottom info -->
+        <div style="color:rgba(255,255,255,0.6);font-size:12px;margin-top:8px;text-align:center;">
+          IMG_20260210_1530.jpg · 来自「2026 春节」
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);">点击时光轴或相册中的照片进入大图模式，深色背景突出照片</p>
+</div>
+
+<div class="section">
+  <h3>② 上传照片</h3>
+  <div style="display:flex;justify-content:center;margin:12px 0;">
+    <div style="max-width:360px;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);background:#FFFCF8;padding:16px;">
+      <!-- Upload modal -->
+      <div style="text-align:center;margin-bottom:12px;">
+        <div style="font-size:18px;font-weight:700;color:#5A4A3A;margin-bottom:4px;">上传照片</div>
+      </div>
+
+      <!-- Upload area -->
+      <div style="border:2px dashed #E8D5C0;border-radius:12px;padding:32px;text-align:center;background:#FFF8F0;">
+        <div style="font-size:36px;margin-bottom:8px;">📤</div>
+        <div style="font-size:14px;color:#5A4A3A;font-weight:500;">点击选择照片</div>
+        <div style="font-size:11px;color:#B8A090;margin-top:4px;">或拖拽照片到此处</div>
+      </div>
+
+      <!-- Target album selector -->
+      <div style="margin-top:12px;">
+        <div style="font-size:13px;color:#5A4A3A;margin-bottom:6px;">保存到相册</div>
+        <div style="display:flex;align-items:center;padding:10px;background:#FFF8F0;border-radius:8px;cursor:pointer;">
+          <span style="flex:1;font-size:13px;color:#5A4A3A;">2026 春节</span>
+          <span style="color:#D4956A;">▼</span>
+        </div>
+      </div>
+
+      <!-- Selected photos preview -->
+      <div style="margin-top:12px;">
+        <div style="font-size:12px;color:#B8A090;margin-bottom:6px;">已选择 5 张照片</div>
+        <div style="display:flex;gap:4px;">
+          <div style="width:48px;height:48px;border-radius:6px;background:#E8D5C0;"></div>
+          <div style="width:48px;height:48px;border-radius:6px;background:#D4BFA8;"></div>
+          <div style="width:48px;height:48px;border-radius:6px;background:#E8D5C0;"></div>
+          <div style="width:48px;height:48px;border-radius:6px;background:#F0E6DA;"></div>
+          <div style="width:48px;height:48px;border-radius:6px;background:#D4BFA8;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5A4A3A;">+3</div>
+        </div>
+      </div>
+
+      <!-- Upload button -->
+      <div style="margin-top:12px;">
+        <div style="background:#E8C9A0;color:white;text-align:center;padding:12px;border-radius:10px;font-weight:600;cursor:pointer;">开始上传</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>③ 移动照片</h3>
+  <div style="display:flex;justify-content:center;margin:12px 0;">
+    <div style="max-width:360px;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);background:#FFFCF8;padding:16px;">
+      <!-- Move dialog -->
+      <div style="text-align:center;margin-bottom:12px;">
+        <div style="font-size:18px;font-weight:700;color:#5A4A3A;">移动照片</div>
+        <div style="font-size:12px;color:#B8A090;">选择 3 张照片的目标相册</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:#FFF8F0;cursor:pointer;">
+          <span>📁</span>
+          <span style="flex:1;font-size:13px;color:#5A4A3A;">春日踏青</span>
+          <span style="font-size:12px;color:#B8A090;">15 张</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:#FFF8F0;cursor:pointer;">
+          <span>📁</span>
+          <span style="flex:1;font-size:13px;color:#5A4A3A;">宝宝成长日记</span>
+          <span style="font-size:12px;color:#B8A090;">156 张</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:#E8C9A0;color:white;cursor:pointer;">
+          <span style="opacity:0.8;">📁</span>
+          <span style="flex:1;font-size:13px;">+ 新建相册</span>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px;">
+        <div style="flex:1;padding:10px;text-align:center;border-radius:8px;background:#F5EDE4;color:#B8A090;cursor:pointer;">取消</div>
+        <div style="flex:1;padding:10px;text-align:center;border-radius:8px;background:#E8C9A0;color:white;font-weight:600;cursor:pointer;">移动到此处</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>交互路径总结</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="padding:12px;background:var(--bg-muted);border-radius:12px;">
+      <strong>📸 上传路径</strong>
+      <div style="font-size:13px;margin-top:4px;color:var(--text-muted)">
+        首页/相册页 ➜ 点击 + ➜ 选择照片 ➜ 选择目标相册 ➜ 上传<br>
+        <span style="color:#D4A574;">（支持多选、拖拽上传）</span>
+      </div>
+    </div>
+    <div style="padding:12px;background:var(--bg-muted);border-radius:12px;">
+      <strong>↕ 移动路径</strong>
+      <div style="font-size:13px;margin-top:4px;color:var(--text-muted)">
+        相册详情 ➜ 选择照片 ➜ 点击移动 ➜ 选择目标相册 ➜ 确认<br>
+        <span style="color:#D4A574;">（可多选，移动后原相册不再显示）</span>
+      </div>
+    </div>
+    <div style="padding:12px;background:var(--bg-muted);border-radius:12px;">
+      <strong>🗑️ 删除路径</strong>
+      <div style="font-size:13px;margin-top:4px;color:var(--text-muted)">
+        选择照片 ➜ 点击删除 ➜ 进入回收站 ➜ 30 天内可恢复<br>
+        <span style="color:#D4A574;">（删除相册时内部照片一并进入回收站）</span>
+      </div>
+    </div>
+    <div style="padding:12px;background:var(--bg-muted);border-radius:12px;">
+      <strong>🖼️ 查看路径</strong>
+      <div style="font-size:13px;margin-top:4px;color:var(--text-muted)">
+        时光轴/相册 ➜ 点击照片 ➜ 大图查看 ➜ 左右滑动浏览<br>
+        <span style="color:#D4A574;">（大图模式下可直接删除或移动）</span>
+      </div>
+    </div>
+  </div>
+</div>

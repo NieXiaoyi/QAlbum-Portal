@@ -1,0 +1,141 @@
+// ============================================
+// QAlbum - Responsive Mixins
+// ============================================
+
+@use 'variables' as *;
+
+// -------- Media Query Mixins (mobile-first) --------
+
+/// Target small devices and up (default, no query needed for base styles)
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+/// Target medium devices (tablets) and up
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+/// Target large devices (desktop) and up
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+/// Target extra large devices and up
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+/// Target ultra wide devices and up
+@mixin xxl {
+  @media (min-width: $breakpoint-xxl) {
+    @content;
+  }
+}
+
+// -------- Max-width queries (for exceptions) --------
+
+@mixin max-sm {
+  @media (max-width: ($breakpoint-sm - 1px)) {
+    @content;
+  }
+}
+
+@mixin max-md {
+  @media (max-width: ($breakpoint-md - 1px)) {
+    @content;
+  }
+}
+
+@mixin max-lg {
+  @media (max-width: ($breakpoint-lg - 1px)) {
+    @content;
+  }
+}
+
+// -------- Responsive Grid Mixin --------
+
+/// Creates a responsive grid layout with configurable columns
+/// @param {Number} $min-column-width [280px] - Minimum width for each column
+/// @param {Number} $gap [$spacing-md] - Gap between grid items
+/// @param {String} $layout [auto-fill] - 'auto-fill' or 'auto-fit'
+@mixin responsive-grid($min-column-width: 280px, $gap: $spacing-md, $layout: auto-fill) {
+  display: grid;
+  grid-template-columns: repeat(#{$layout}, minmax($min-column-width, 1fr));
+  gap: $gap;
+}
+
+// -------- Flexbox Helpers --------
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// -------- Truncate Text --------
+
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// --------------
+
+/// Visually hidden but accessible to screen readers
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/// Apply a card-style container
+@mixin card($padding: $spacing-lg, $radius: $border-radius-lg) {
+  background-color: $white;
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+  padding: $padding;
+}
+
+/// Apply smooth hover lift effect
+@mixin hover-lift {
+  transition: transform $transition-base, box-shadow $transition-base;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}

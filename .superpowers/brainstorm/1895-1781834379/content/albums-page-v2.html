@@ -1,0 +1,122 @@
+<h2>相册页面 · 双视图模式</h2>
+<p class="subtitle">支持列表/平铺切换，适应不同设备和习惯</p>
+
+<div class="section">
+  <h3>视图切换控件</h3>
+  <div style="display:flex;justify-content:center;margin:12px 0;">
+    <div style="display:flex;background:#F5EDE4;border-radius:10px;padding:3px;gap:2px;">
+      <div style="padding:6px 16px;border-radius:8px;background:white;font-size:13px;font-weight:500;color:#D4956A;box-shadow:0 1px 4px rgba(0,0,0,0.06);">☰ 列表</div>
+      <div style="padding:6px 16px;border-radius:8px;font-size:13px;font-weight:500;color:#B8A090;">▦ 平铺</div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);">点击切换，选择偏好。默认：移动端=列表，桌面端=平铺</p>
+</div>
+
+<div class="section">
+  <h3>① 列表模式（适合移动端）</h3>
+  <div style="display:flex;justify-content:center;margin:12px 0;">
+    <div style="max-width:360px;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);background:#FFFCF8;padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-size:20px;font-weight:700;color:#D4956A;">相册</div>
+        <div style="display:flex;gap:8px;">
+          <div style="padding:6px 12px;border-radius:8px;background:#F5EDE4;font-size:12px;color:#5A4A3A;cursor:pointer;">☰ ▦</div>
+          <div style="width:36px;height:36px;border-radius:12px;background:#E8C9A0;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:bold;">+</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:12px;padding:10px;background:#FFF8F0;border-radius:10px;">
+          <div style="width:56px;height:56px;border-radius:8px;background:#E8D5C0;flex-shrink:0;"></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;font-size:14px;color:#5A4A3A;">2026 春节</div>
+            <div style="font-size:11px;color:#B8A090;">28 张 · 2 月</div>
+          </div>
+          <div style="color:#D4956A;">›</div>
+        </div>
+        <div style="display:flex;gap:12px;padding:10px;background:#FFF8F0;border-radius:10px;">
+          <div style="width:56px;height:56px;border-radius:8px;background:#D4BFA8;flex-shrink:0;"></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;font-size:14px;color:#5A4A3A;">春日踏青</div>
+            <div style="font-size:11px;color:#B8A090;">15 张 · 4 月</div>
+          </div>
+          <div style="color:#D4956A;">›</div>
+        </div>
+        <div style="display:flex;gap:12px;padding:10px;background:#FFF8F0;border-radius:10px;">
+          <div style="width:56px;height:56px;border-radius:8px;background:#E8D5C0;flex-shrink:0;"></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;font-size:14px;color:#5A4A3A;">宝宝成长日记</div>
+            <div style="font-size:11px;color:#B8A090;">156 张 · 持续更新</div>
+          </div>
+          <div style="color:#D4956A;">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);">列表模式：一行一个相册，左封面右信息，滑动顺畅</p>
+</div>
+
+<div class="section">
+  <h3>② 平铺模式（适合桌面端）</h3>
+  <div style="display:flex;justify-content:center;margin:12px 0;">
+    <div style="max-width:520px;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);background:#FFFCF8;padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-size:20px;font-weight:700;color:#D4956A;">相册</div>
+        <div style="display:flex;gap:8px;">
+          <div style="padding:6px 12px;border-radius:8px;background:#F5EDE4;font-size:12px;color:#5A4A3A;">☰ ▦</div>
+          <div style="width:36px;height:36px;border-radius:12px;background:#E8C9A0;display:flex;align-items:center;justify-content:center;font-size:20px;color:white;">+</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="border-radius:12px;overflow:hidden;background:#FFF8F0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <div style="aspect-ratio:16/10;background:#E8D5C0;display:flex;align-items:flex-end;padding:8px;">
+            <div style="background:rgba(0,0,0,0.3);color:white;font-size:11px;padding:2px 8px;border-radius:4px;">28 张</div>
+          </div>
+          <div style="padding:10px;">
+            <div style="font-weight:600;font-size:14px;color:#5A4A3A;">2026 春节</div>
+            <div style="font-size:11px;color:#B8A090;">2026 年 2 月</div>
+          </div>
+        </div>
+        <div style="border-radius:12px;overflow:hidden;background:#FFF8F0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <div style="aspect-ratio:16/10;background:#D4BFA8;display:flex;align-items:flex-end;padding:8px;">
+            <div style="background:rgba(0,0,0,0.3);color:white;font-size:11px;padding:2px 8px;border-radius:4px;">15 张</div>
+          </div>
+          <div style="padding:10px;">
+            <div style="font-weight:600;font-size:14px;color:#5A4A3A;">春日踏青</div>
+            <div style="font-size:11px;color:#B8A090;">2026 年 4 月</div>
+          </div>
+        </div>
+        <div style="border-radius:12px;overflow:hidden;background:#FFF8F0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <div style="aspect-ratio:16/10;background:#E8D5C0;display:flex;align-items:flex-end;padding:8px;">
+            <div style="background:rgba(0,0,0,0.3);color:white;font-size:11px;padding:2px 8px;border-radius:4px;">156 张</div>
+          </div>
+          <div style="padding:10px;">
+            <div style="font-weight:600;font-size:14px;color:#5A4A3A;">宝宝成长日记</div>
+            <div style="font-size:11px;color:#B8A090;">2026 年 1 月 - 6 月</div>
+          </div>
+        </div>
+        <div style="border-radius:12px;overflow:hidden;background:#F5EDE4;border:2px dashed #E8D5C0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;color:#D4956A;min-height:140px;">
+          <div style="font-size:28px;margin-bottom:4px;">+</div>
+          <div style="font-size:13px;">创建相册</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);">平铺模式：卡片式展示，封面大图更直观，一屏展示更多相册</p>
+</div>
+
+<div class="section">
+  <h3>🌟 视图切换逻辑</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+    <div style="padding:12px;background:var(--bg-muted);border-radius:12px;">
+      <strong>📱 自动适配</strong>
+      <div style="font-size:13px;margin-top:4px;color:var(--text-muted)">移动端默认列表，桌面端默认平铺，用户可随时切换</div>
+    </div>
+    <div style="padding:12px;background:var(--bg-muted);border-radius:12px;">
+      <strong>💾 记住偏好</strong>
+      <div style="font-size:13px;margin-top:4px;color:var(--text-muted)">用户选择的视图模式存入本地，下次访问保持</div>
+    </div>
+    <div style="padding:12px;background:var(--bg-muted);border-radius:12px;">
+      <strong>🔄 无缝切换</strong>
+      <div style="font-size:13px;margin-top:4px;color:var(--text-muted)">切换动画平滑，不重新加载数据</div>
+    </div>
+  </div>
+</div>
