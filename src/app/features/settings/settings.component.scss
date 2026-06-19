@@ -1,0 +1,59 @@
+@use '../../../styles/variables' as *;
+
+.settings-page { padding: 16px; max-width: 500px; margin: 0 auto; }
+
+.space-card {
+  display: flex; align-items: center; gap: 12px; padding: 12px;
+  background: $color-bg-card; border-radius: $radius-lg; margin-bottom: 16px;
+}
+.space-avatar {
+  width: 48px; height: 48px; border-radius: $radius-lg;
+  background: $color-accent; display: flex; align-items: center; justify-content: center; font-size: 24px;
+}
+.space-info { flex: 1; }
+.space-name { font-weight: 600; font-size: 15px; color: $color-text; }
+.space-meta { font-size: 12px; color: $color-text-muted; }
+
+.section { margin-bottom: 8px; }
+.section-title {
+  font-size: 12px; font-weight: 600; color: $color-accent-dark; padding: 8px 4px 4px;
+}
+
+.menu-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: $radius-md; cursor: pointer;
+  &:hover { background: $color-bg-muted; }
+  &.approval { background: $color-danger-bg; }
+  &.danger { margin-top: 16px; border-top: 1px solid $color-bg-subtle; padding-top: 12px; }
+}
+.menu-icon { font-size: 18px; }
+.menu-label { flex: 1; font-size: 14px; color: $color-text; }
+.menu-badge {
+  font-size: 12px; color: $color-text-muted;
+  &.danger { background: $color-danger; color: white; padding: 2px 8px; border-radius: 10px; }
+}
+.menu-arrow { color: $color-accent-dark; }
+.menu-item.danger .menu-label { color: $color-danger; }
+
+.approval-list {
+  background: $color-bg; border-radius: $radius-md; padding: 8px; margin-bottom: 8px;
+}
+.approval-item {
+  display: flex; align-items: center; gap: 8px; padding: 8px;
+}
+.user-name { font-size: 13px; font-weight: 500; color: $color-text; }
+.user-email { font-size: 11px; color: $color-text-muted; flex: 1; }
+.approval-actions { display: flex; gap: 6px; }
+.btn-approve { padding: 4px 12px; border-radius: 6px; background: $color-accent; color: white; font-size: 12px; }
+.btn-reject { padding: 4px 12px; border-radius: 6px; background: $color-bg-muted; color: $color-text-muted; font-size: 12px; }
+.empty-item { text-align: center; padding: 16px; color: $color-text-muted; font-size: 13px; }
+
+.member-list { background: $color-bg; border-radius: $radius-md; padding: 8px; margin-bottom: 8px; }
+.member-item { display: flex; align-items: center; gap: 10px; padding: 8px; }
+.member-avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: $color-accent;
+  color: white; display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+.member-info { flex: 1; }
+.member-name { display: block; font-size: 13px; color: $color-text; }
+.member-role { display: block; font-size: 11px; color: $color-text-muted; }
+.member-status { font-size: 11px; color: $color-text-muted; &.active { color: #7AB87A; } }
