@@ -82,11 +82,15 @@ export class AuthService {
     return of(undefined);
   }
 
+  getCurrentUser(): User | null {
+    return this.currentUserSubject.value;
+  }
+
   isAdmin(): boolean {
-    return this.currentUserSubject.value?.role === 'admin';
+    return this.getCurrentUser()?.role === 'admin';
   }
 
   isLoggedIn(): boolean {
-    return this.currentUserSubject.value !== null;
+    return this.getCurrentUser() !== null;
   }
 }

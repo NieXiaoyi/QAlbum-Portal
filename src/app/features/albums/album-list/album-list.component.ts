@@ -32,7 +32,7 @@ export class AlbumListComponent implements OnInit {
 
   createAlbum(): void {
     if (!this.newAlbumName.trim()) return;
-    const user = this.authService['currentUserSubject'].value;
+    const user = this.authService.getCurrentUser();
     if (!user) return;
     this.albumService.createAlbum(this.newAlbumName, this.newAlbumDesc, user)
       .subscribe(() => {
