@@ -1,0 +1,39 @@
+<div class="trash-page">
+  <div class="header">
+    <h2>回收站</h2>
+    <span class="hint">30 天后自动清理</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab" [class.active]="activeTab === 'photos'" (click)="activeTab = 'photos'">
+      照片 {{ items.length }}
+    </button>
+    <button class="tab" [class.active]="activeTab === 'albums'" (click)="activeTab = 'albums'">
+      相册 0
+    </button>
+  </div>
+
+  <div class="items-list">
+    <div class="item" *ngFor="let item of photoItems">
+      <div class="item-thumb">
+        <img [src]="item.photo.url" [alt]="item.photo.fileName">
+      </div>
+      <div class="item-info">
+        <div class="item-name">{{ item.photo.fileName }}</div>
+        <div class="item-source">{{ item.deletedAt | timeAgo }}删除 · 来自「{{ item.originalAlbumName }}」</div>
+        <div class="item-expiry">{{ item.expiresAt | date:'M 月 d 日' }} 自动永久删除</div>
+      </div>
+      <button class="restore-btn" (click)="restoreItem(item.id)">恢复</button>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!photoItems.length">
+    <div class="icon">🗑️</div>
+    <p>回收站是空的</p>
+  </div>
+
+  <div class="bottom-actions" *ngIf="photoItems.length">
+    <button class="btn-restore-all" (click)="restoreAll()">♻️ 恢复全部</button>
+    <button class="btn-empty" (click)="emptyTrash()">🗑️ 清空回收站</button>
+  </div>
+</div>
