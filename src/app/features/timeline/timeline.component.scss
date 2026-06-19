@@ -1,0 +1,111 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.timeline {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .space-name {
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: $color-accent-dark;
+  }
+
+  .photo-count {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $color-bg-subtle;
+    font-size: 16px;
+  }
+
+  .upload-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: $color-accent;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.group {
+  margin-bottom: 16px;
+}
+
+.group-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  .group-label {
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $color-accent-dark;
+    white-space: nowrap;
+  }
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: $color-bg-subtle;
+  }
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+
+  @include tablet { grid-template-columns: repeat(4, 1fr); }
+  @include desktop { grid-template-columns: repeat(6, 1fr); }
+}
+
+.photo-item {
+  aspect-ratio: 1;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  background: $color-bg-muted;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 64px 16px;
+  color: $color-text-muted;
+
+  .empty-icon { font-size: 48px; margin-bottom: 12px; }
+  p { font-size: 16px; color: $color-text; margin-bottom: 4px; }
+  span { font-size: 13px; }
+}

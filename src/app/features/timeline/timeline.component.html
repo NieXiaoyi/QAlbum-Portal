@@ -1,0 +1,41 @@
+<div class="timeline">
+  <div class="header">
+    <div>
+      <h1 class="space-name">{{ spaceName }}</h1>
+      <span class="photo-count">共 {{ totalPhotos }} 张照片</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" routerLink="/settings">👤</button>
+      <button class="upload-btn" (click)="showUpload = true">+</button>
+    </div>
+  </div>
+
+  <div class="groups">
+    <div class="group" *ngFor="let group of photoGroups">
+      <div class="group-divider">
+        <span class="group-label">{{ group.label }}</span>
+      </div>
+      <div class="photo-grid">
+        <a
+          class="photo-item"
+          *ngFor="let photo of group.photos"
+          [routerLink]="['/photo', photo.id]"
+        >
+          <img [src]="photo.url" [alt]="photo.fileName" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="totalPhotos === 0">
+    <div class="empty-icon">📸</div>
+    <p>还没有照片</p>
+    <span>点击右上角 + 上传第一张照片</span>
+  </div>
+</div>
+
+<app-upload-dialog
+  *ngIf="showUpload"
+  (uploaded)="onUploaded()"
+  (close)="showUpload = false"
+/>
