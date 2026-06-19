@@ -50,8 +50,6 @@
 🖼️ 查看：点击照片 → 深色背景大图 → 左右滑动浏览
 ```
 
-> 完整设计文档见 [`docs/superpowers/specs/2026-06-19-family-photo-album-ui-design.md`](docs/superpowers/specs/2026-06-19-family-photo-album-ui-design.md)
-
 ---
 
 ## 技术栈
@@ -90,6 +88,3 @@ npm run build
 npm test
 ```
 
-## 实现计划
-
-参见 [`docs/superpowers/plans/2026-06-19-family-photo-album-implementation.md`](docs/superpowers/plans/2026-06-19-family-photo-album-implementation.md)
