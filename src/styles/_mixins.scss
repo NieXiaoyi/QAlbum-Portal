@@ -6,57 +6,16 @@
 
 // -------- Media Query Mixins (mobile-first) --------
 
-/// Target small devices and up (default, no query needed for base styles)
+/// Target small devices and up (mobile: 768px+)
 @mixin sm {
-  @media (min-width: $breakpoint-sm) {
+  @media (min-width: $bp-mobile) {
     @content;
   }
 }
 
-/// Target medium devices (tablets) and up
+/// Target medium devices and up (tablet: 1200px+)
 @mixin md {
-  @media (min-width: $breakpoint-md) {
-    @content;
-  }
-}
-
-/// Target large devices (desktop) and up
-@mixin lg {
-  @media (min-width: $breakpoint-lg) {
-    @content;
-  }
-}
-
-/// Target extra large devices and up
-@mixin xl {
-  @media (min-width: $breakpoint-xl) {
-    @content;
-  }
-}
-
-/// Target ultra wide devices and up
-@mixin xxl {
-  @media (min-width: $breakpoint-xxl) {
-    @content;
-  }
-}
-
-// -------- Max-width queries (for exceptions) --------
-
-@mixin max-sm {
-  @media (max-width: ($breakpoint-sm - 1px)) {
-    @content;
-  }
-}
-
-@mixin max-md {
-  @media (max-width: ($breakpoint-md - 1px)) {
-    @content;
-  }
-}
-
-@mixin max-lg {
-  @media (max-width: ($breakpoint-lg - 1px)) {
+  @media (min-width: $bp-tablet) {
     @content;
   }
 }
@@ -65,9 +24,9 @@
 
 /// Creates a responsive grid layout with configurable columns
 /// @param {Number} $min-column-width [280px] - Minimum width for each column
-/// @param {Number} $gap [$spacing-md] - Gap between grid items
+/// @param {Number} $gap [16px] - Gap between grid items
 /// @param {String} $layout [auto-fill] - 'auto-fill' or 'auto-fit'
-@mixin responsive-grid($min-column-width: 280px, $gap: $spacing-md, $layout: auto-fill) {
+@mixin responsive-grid($min-column-width: 280px, $gap: 16px, $layout: auto-fill) {
   display: grid;
   grid-template-columns: repeat(#{$layout}, minmax($min-column-width, 1fr));
   gap: $gap;
@@ -124,18 +83,18 @@
 }
 
 /// Apply a card-style container
-@mixin card($padding: $spacing-lg, $radius: $border-radius-lg) {
-  background-color: $white;
+@mixin card($padding: 24px, $radius: $radius-lg) {
+  background-color: $color-bg-card;
   border-radius: $radius;
-  box-shadow: $shadow-sm;
+  box-shadow: $shadow-card;
   padding: $padding;
 }
 
 /// Apply smooth hover lift effect
 @mixin hover-lift {
-  transition: transform $transition-base, box-shadow $transition-base;
+  transition: transform 250ms ease, box-shadow 250ms ease;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: $shadow-md;
+    box-shadow: $shadow-elevated;
   }
 }

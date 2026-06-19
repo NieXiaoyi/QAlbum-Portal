@@ -25,42 +25,41 @@ html {
 }
 
 body {
-  font-family: $font-family-base;
+  font-family: $font-family;
   font-size: $font-size-base;
-  font-weight: $font-weight-regular;
-  line-height: $line-height-base;
-  color: $near-black;
-  background-color: $cream;
+  line-height: 1.6;
+  color: $color-text;
+  background-color: $color-bg;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 // -------- Typography --------
 h1, h2, h3, h4, h5, h6 {
-  font-family: $font-family-heading;
-  font-weight: $font-weight-bold;
-  line-height: $line-height-tight;
-  color: $gray-darker;
+  font-family: $font-family;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $color-text;
 }
 
-h1 { font-size: $font-size-hero; }
-h2 { font-size: $font-size-xxl; }
+h1 { font-size: 32px; }
+h2 { font-size: 24px; }
 h3 { font-size: $font-size-xl; }
 h4 { font-size: $font-size-lg; }
 h5 { font-size: $font-size-md; }
 h6 { font-size: $font-size-base; }
 
 p {
-  margin-bottom: $spacing-md;
+  margin-bottom: 16px;
 }
 
 a {
-  color: $primary-dark;
+  color: $color-accent-dark;
   text-decoration: none;
-  transition: color $transition-fast;
+  transition: color 150ms ease;
 
   &:hover {
-    color: $primary-color;
+    color: $color-accent;
     text-decoration: underline;
   }
 }
@@ -95,20 +94,20 @@ select {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
-  border: 1px solid $gray-light;
-  border-radius: $border-radius-md;
-  padding: $spacing-sm $spacing-md;
-  background-color: $white;
+  border: 1px solid $color-bg-subtle;
+  border-radius: $radius-md;
+  padding: 8px 16px;
+  background-color: $color-bg-card;
   outline: none;
-  transition: border-color $transition-fast, box-shadow $transition-fast;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 
   &:focus {
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.2);
   }
 
   &::placeholder {
-    color: $gray-medium;
+    color: $color-text-muted;
   }
 }
 
@@ -119,15 +118,15 @@ select {
 }
 
 ::-webkit-scrollbar-track {
-  background: $gray-lightest;
+  background: $color-bg-muted;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $gray-medium;
-  border-radius: $border-radius-pill;
+  background: $color-text-muted;
+  border-radius: 9999px;
 
   &:hover {
-    background: $gray-dark;
+    background: $color-text;
   }
 }
 
