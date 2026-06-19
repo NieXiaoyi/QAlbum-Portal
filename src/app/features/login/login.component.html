@@ -1,0 +1,39 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="logo">📸</div>
+    <h1>QAlbum</h1>
+    <p class="subtitle">私有云相册</p>
+
+    <div class="form">
+      <div class="field" *ngIf="isRegisterMode">
+        <label>姓名</label>
+        <input type="text" placeholder="你的名字" [(ngModel)]="name" (keyup.enter)="submit()">
+      </div>
+
+      <div class="field">
+        <label>邮箱</label>
+        <input type="email" placeholder="your@email.com" [(ngModel)]="email" (keyup.enter)="submit()">
+      </div>
+
+      <div class="field">
+        <label>密码</label>
+        <input type="password" placeholder="至少 4 位" [(ngModel)]="password" (keyup.enter)="submit()">
+      </div>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <button class="submit-btn" (click)="submit()">
+        {{ isRegisterMode ? '注  册' : '登  录' }}
+      </button>
+
+      <div class="switch-mode">
+        <span *ngIf="!isRegisterMode">
+          没有账号？<a (click)="toggleMode()">去注册</a>
+        </span>
+        <span *ngIf="isRegisterMode">
+          已有账号？<a (click)="toggleMode()">去登录</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
