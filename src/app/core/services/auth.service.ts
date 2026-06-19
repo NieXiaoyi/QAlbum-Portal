@@ -16,7 +16,7 @@ export class AuthService {
   private loadUsers(): User[] {
     // Check for old data format and clear it
     const version = localStorage.getItem(STORAGE_VERSION_KEY);
-    if (!version) {
+    if (!version || Number(version) < STORAGE_VERSION) {
       // First launch after migration — clear legacy data
       localStorage.removeItem('qalbum_users');
       localStorage.removeItem('qalbum_albums');
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   private encodePassword(raw: string): string {
-    return btoa(raw);
+    return btoa(raw); // base64 encoding for simple obfuscation (client-side only)
   }
 
   getUsers(): Observable<User[]> {
