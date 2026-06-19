@@ -8,10 +8,13 @@ const STORAGE_KEY = 'qalbum_albums';
 @Injectable({ providedIn: 'root' })
 export class AlbumService {
   private albums: Album[] = this.loadAlbums();
-  private albumsSubject = new BehaviorSubject<Album[]>(this.filteredAlbums());
-  albums$ = this.albumsSubject.asObservable();
+  private albumsSubject!: BehaviorSubject<Album[]>;
+  albums$!: Observable<Album[]>;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.albumsSubject = new BehaviorSubject<Album[]>(this.filteredAlbums());
+    this.albums$ = this.albumsSubject.asObservable();
+  }
 
   private loadAlbums(): Album[] {
     const data = localStorage.getItem(STORAGE_KEY);
