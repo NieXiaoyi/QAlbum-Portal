@@ -1,24 +1,32 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Album } from '../models/album.model';
-import { User } from '../models/user.model';
+import { AuthService } from './auth.service';
 
 const STORAGE_KEY = 'qalbum_albums';
 
 @Injectable({ providedIn: 'root' })
 export class AlbumService {
   private albums: Album[] = this.loadAlbums();
-  private albumsSubject = new BehaviorSubject<Album[]>(this.albums);
+  private albumsSubject = new BehaviorSubject<Album[]>(this.filteredAlbums());
   albums$ = this.albumsSubject.asObservable();
+
+  constructor(private authService: AuthService) {}
 
   private loadAlbums(): Album[] {
     const data = localStorage.getItem(STORAGE_KEY);
     return data ? JSON.parse(data) : [];
   }
 
+  private filteredAlbums(): Album[] {
+    const user = this.authService.getCurrentUser();
+    if (!user) return [];
+    return this.albums.filter(a => a.ownerId === user.id);
+  }
+
   private save(): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.albums));
-    this.albumsSubject.next([...this.albums]);
+    this.albumsSubject.next(this.filteredAlbums());
   }
 
   getAlbums(): Observable<Album[]> {
@@ -26,10 +34,12 @@ export class AlbumService {
   }
 
   getAlbum(id: string): Observable<Album | undefined> {
-    return of(this.albums.find(a => a.id === id));
+    return of(this.albums.find(a => a.id === id && a.ownerId === this.authService.getCurrentUser()?.id));
   }
 
-  createAlbum(name: string, description: string, user: User): Observable<Album> {
+  createAlbum(name: string, description: string): Observable<Album> {
+    const user = this.authService.getCurrentUser();
+    if (!user) return of(null as unknown as Album);
     const album: Album = {
       id: 'album-' + Date.now(),
       name,
@@ -37,7 +47,7 @@ export class AlbumService {
       photoCount: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
-      members: [user],
+      ownerId: user.id,
     };
     this.albums.push(album);
     this.save();
@@ -45,14 +55,15 @@ export class AlbumService {
   }
 
   updateAlbum(id: string, updates: Partial<Album>): Observable<Album> {
-    const album = this.albums.find(a => a.id === id)!;
+    const album = this.albums.find(a => a.id === id && a.ownerId === this.authService.getCurrentUser()?.id);
+    if (!album) return of(null as unknown as Album);
     Object.assign(album, updates, { updatedAt: new Date() });
     this.save();
     return of(album);
   }
 
   deleteAlbum(id: string): Observable<void> {
-    this.albums = this.albums.filter(a => a.id !== id);
+    this.albums = this.albums.filter(a => !(a.id === id && a.ownerId === this.authService.getCurrentUser()?.id));
     this.save();
     return of(undefined);
   }

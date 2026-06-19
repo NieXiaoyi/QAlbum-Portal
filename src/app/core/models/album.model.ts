@@ -1,5 +1,3 @@
-import { User } from './user.model';
-
 export interface Album {
   id: string;
   name: string;
@@ -8,5 +6,5 @@ export interface Album {
   photoCount: number;
   createdAt: Date;
   updatedAt: Date;
-  members: User[];
+  ownerId: string;
 }
