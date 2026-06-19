@@ -1,94 +1,99 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文档为 Claude Code（claude.ai/code）在此仓库中工作提供指导。
 
-## Commands
+## 命令
 
 ```bash
-# Development server (default http://localhost:4200)
+# 开发服务器（默认 http://localhost:4200）
 npm start
 
-# Production build
+# 生产构建
 npm run build
 
-# Run unit tests (Vitest + Angular test runner)
+# 运行单元测试（Vitest + Angular test runner）
 npm test
 
-# Watch mode build
+# 监听模式构建
 npm run watch
 ```
 
-Tests use Vitest via `@angular/build:unit-test`. Configuration is in `tsconfig.spec.json`. Single test file execution is not currently configured.
+测试使用 Vitest（通过 `@angular/build:unit-test`）。配置文件位于 `tsconfig.spec.json`。暂未配置单个测试文件执行。
 
-## Project Overview
+## 项目概览
 
-QAlbum-Portal is a family cloud photo album built with Angular 22 + TypeScript 6.0. All components are **standalone** (no NgModules). Data is persisted in `localStorage` via injectable services — no backend API required for development.
+QAlbum-Portal 是一个家庭云相册，基于 Angular 22 + TypeScript 6.0 构建。所有组件均为 **standalone**（无 NgModules）。数据通过可注入服务持久化到 `localStorage` 中——开发无需后端 API。
 
-## Architecture
+## 架构
 
-### Layer Structure
+### 分层结构
 
 ```
 src/
   app/
-    core/           -- Services, models, guards (no UI)
-      models/       -- TypeScript interfaces (User, Album, Photo, TrashItem)
-      services/     -- Injectable services with localStorage persistence
-      guards/       -- Route guards (AdminGuard)
-    shared/         -- Reusable UI components and pipes
+    core/           -- 服务、模型、守卫（无 UI）
+      models/       -- TypeScript 接口（User, Album, Photo, TrashItem）
+      services/     -- 可注入服务，localStorage 持久化
+      guards/       -- 路由守卫（AdminGuard）
+    shared/         -- 可复用 UI 组件和管道
       components/   -- ViewToggle, ConfirmDialog, UploadDialog, MoveDialog
       pipes/        -- TimeAgoPipe, FileSizePipe
-    features/       -- Page-level components, lazy-loaded
-      timeline/     -- Home page: month-grouped photo grid
-      albums/       -- Album list (list/grid toggle) + album detail
-      photo-viewer/ -- Full-screen dark-mode photo viewer
-      trash/        -- Recycle bin with 30-day retention
-      settings/     -- Member management, admin approval flow
+    features/       -- 页面级组件，懒加载
+      timeline/     -- 首页：按月份分组的照片网格
+      albums/       -- 相册列表（列表/网格切换）+ 相册详情
+      photo-viewer/ -- 全屏暗色模式照片查看器
+      trash/        -- 回收站（保留 30 天）
+      settings/     -- 成员管理，管理员审批流程
 ```
 
-### Routing
+### 路由
 
-Lazy-loaded via `loadComponent()` in `app.routes.ts`. Routes:
-- `/` — TimelineComponent (default)
+通过 `app.routes.ts` 中的 `loadComponent()` 实现懒加载。路由如下：
+- `/` — TimelineComponent（默认）
 - `/albums` — AlbumListComponent
 - `/albums/:id` — AlbumDetailComponent
 - `/trash` — TrashComponent
 - `/settings` — SettingsComponent
 - `/photo/:id` — PhotoViewerComponent
 
-### Services (all `providedIn: 'root'`)
+### 服务（全部使用 `providedIn: 'root'`）
 
-| Service | Responsibility | localStorage key |
+| 服务 | 职责 | localStorage 键 |
 |---------|---------------|-----------------|
-| `AuthService` | Users, login/logout, member approval | `qalbum_users`, `qalbum_current_user` |
-| `AlbumService` | Album CRUD | `qalbum_albums` |
-| `PhotoService` | Photo upload, move, delete | `qalbum_photos` |
-| `TrashService` | 30-day recycle bin | `qalbum_trash` |
+| `AuthService` | 用户、登录/登出、成员审批 | `qalbum_users`, `qalbum_current_user` |
+| `AlbumService` | 相册 CRUD | `qalbum_albums` |
+| `PhotoService` | 照片上传、移动、删除 | `qalbum_photos` |
+| `TrashService` | 30 天回收站 | `qalbum_trash` |
 
-Services use `BehaviorSubject` + `localStorage` for state management. To swap in a real API, replace each service's implementation while keeping the same method signatures and Observable return types.
+服务使用 `BehaviorSubject` + `localStorage` 进行状态管理。如需替换为真实 API，只需替换每个服务的实现，同时保持相同的方法签名和 Observable 返回类型即可。
 
-### Theme System
+### 主题系统
 
-SCSS variables in `src/styles/_variables.scss`: warm family palette (cream/caramel/umber), border radius scale, shadows, font sizes, breakpoints.
+`src/styles/_variables.scss` 中的 SCSS 变量：温暖的家族色板（奶油色/焦糖色/赭色）、圆角尺度、阴影、字体大小、断点。
 
-Responsive mixins in `src/styles/_mixins.scss`: `mobile` / `tablet` / `desktop` breakpoints and `responsive-grid($mobile-cols, $tablet-cols, $desktop-cols)`.
+`src/styles/_mixins.scss` 中的响应式 mixin：`mobile` / `tablet` / `desktop` 断点以及 `responsive-grid($mobile-cols, $tablet-cols, $desktop-cols)`。
 
-### Data Models (all in `src/app/core/models/`)
+### 数据模型（全部位于 `src/app/core/models/`）
 
-- **User**: id, name, email, role (`admin`|`member`), status (`active`|`pending`), joinedAt
+- **User**: id, name, email, role（`admin`|`member`）, status（`active`|`pending`）, joinedAt
 - **Album**: id, name, description, photoCount, createdAt, members
 - **Photo**: id, albumId, fileName, url, size, uploadedAt, uploadedBy
-- **TrashItem**: originalAlbumId, originalAlbumName, photo, deletedAt, expiresAt (30 days)
+- **TrashItem**: originalAlbumId, originalAlbumName, photo, deletedAt, expiresAt（30 天）
 
-### Nav Bar
+### 导航栏
 
-Bottom-anchored on mobile, top-anchored on desktop (see `app.html` + `app.scss`). Four tabs: 时光轴, 相册, 回收站, 设置.
+移动端固定在底部，桌面端固定在顶部（参见 `app.html` + `app.scss`）。四个标签页：时光轴, 相册, 回收站, 设置。
 
-## Key Design Decisions
+## 关键设计决策
 
-- **Standalone components only** — no NgModules, no `app.module.ts`
-- **localStorage persistence** — all data survives page refresh; clear via DevTools → Application → Local Storage → keys starting with `qalbum_`
-- **Lazy-loaded routes** — each feature page is a separate chunk
-- **No `strict: true` in tsconfig** — `strictNullChecks` and related flags are not enabled; be careful with `find()` results that may be undefined
-- **Angular 22** uses `app.ts` / `app.html` / `app.scss` instead of `app.component.ts` naming convention for the root component
-- **No backend** — the app is fully client-side; services can be swapped for HTTP-based implementations
+- **仅使用 Standalone 组件** — 无 NgModules，无 `app.module.ts`
+- **localStorage 持久化** — 所有数据在刷新页面后仍保留；通过 DevTools → Application → Local Storage → 以 `qalbum_` 开头的键来清除数据
+- **懒加载路由** — 每个功能页面为独立的代码块
+- **tsconfig 中未启用 `strict: true`** — 未启用 `strictNullChecks` 及相关标志；使用 `find()` 结果时需注意可能为 undefined
+- **Angular 22** 使用 `app.ts` / `app.html` / `app.scss` 命名约定（而非 `app.component.ts`）作为根组件
+- **无后端** — 应用完全运行在客户端；服务可替换为基于 HTTP 的实现
+
+## 规则
+1. 工作前必须读取README.md，了解当前项目的主要功能
+2. 每次工作完成后，如果主要功能发生了改动，务必刷新README.md
+3. 每次工作完成后，如果代码架构、数据模型、关键设计等发生了改动，务必刷新CLAUDE.md
