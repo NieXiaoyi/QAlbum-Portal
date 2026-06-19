@@ -4,6 +4,8 @@ import { User } from '../models/user.model';
 
 const STORAGE_KEY = 'qalbum_users';
 const CURRENT_USER_KEY = 'qalbum_current_user';
+const STORAGE_VERSION_KEY = 'qalbum_storage_version';
+const STORAGE_VERSION = 2;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -12,18 +14,19 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   private loadUsers(): User[] {
+    // Check for old data format and clear it
+    const version = localStorage.getItem(STORAGE_VERSION_KEY);
+    if (!version) {
+      // First launch after migration — clear legacy data
+      localStorage.removeItem('qalbum_users');
+      localStorage.removeItem('qalbum_albums');
+      localStorage.removeItem('qalbum_photos');
+      localStorage.removeItem('qalbum_trash');
+      localStorage.setItem(STORAGE_VERSION_KEY, String(STORAGE_VERSION));
+      return [];
+    }
     const data = localStorage.getItem(STORAGE_KEY);
-    if (data) return JSON.parse(data);
-    const admin: User = {
-      id: 'admin-1',
-      name: '管理员',
-      email: 'admin@family.com',
-      role: 'admin',
-      status: 'active',
-      joinedAt: new Date('2026-01-01'),
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([admin]));
-    return [admin];
+    return data ? JSON.parse(data) : [];
   }
 
   private loadCurrentUser(): User | null {
@@ -35,16 +38,36 @@ export class AuthService {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.users));
   }
 
+  private encodePassword(raw: string): string {
+    return btoa(raw);
+  }
+
   getUsers(): Observable<User[]> {
     return of(this.users);
   }
 
-  getPendingUsers(): Observable<User[]> {
-    return of(this.users.filter(u => u.status === 'pending'));
+  login(email: string, password: string): Observable<User | null> {
+    const user = this.users.find(u => u.email === email);
+    if (!user) return of(null);
+    if (user.password !== this.encodePassword(password)) return of(null);
+    this.currentUserSubject.next(user);
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+    return of(user);
   }
 
-  login(userId: string): Observable<User> {
-    const user = this.users.find(u => u.id === userId)!;
+  register(name: string, email: string, password: string): Observable<User | null> {
+    const existing = this.users.find(u => u.email === email);
+    if (existing) return of(null);
+    const user: User = {
+      id: 'user-' + Date.now(),
+      name,
+      email,
+      password: this.encodePassword(password),
+      joinedAt: new Date(),
+    };
+    this.users.push(user);
+    this.saveUsers();
+    // Auto-login after register
     this.currentUserSubject.next(user);
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
     return of(user);
@@ -55,42 +78,31 @@ export class AuthService {
     localStorage.removeItem(CURRENT_USER_KEY);
   }
 
-  register(name: string, email: string): Observable<User> {
-    const user: User = {
-      id: 'user-' + Date.now(),
-      name,
-      email,
-      role: 'member',
-      status: 'pending',
-      joinedAt: new Date(),
-    };
-    this.users.push(user);
-    this.saveUsers();
-    return of(user);
-  }
-
-  approveMember(userId: string): Observable<User> {
-    const user = this.users.find(u => u.id === userId)!;
-    user.status = 'active';
-    this.saveUsers();
-    return of(user);
-  }
-
-  rejectMember(userId: string): Observable<void> {
-    this.users = this.users.filter(u => u.id !== userId);
-    this.saveUsers();
-    return of(undefined);
-  }
-
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
 
-  isAdmin(): boolean {
-    return this.getCurrentUser()?.role === 'admin';
-  }
-
   isLoggedIn(): boolean {
     return this.getCurrentUser() !== null;
+  }
+
+  updateProfile(name: string, email: string): Observable<User> {
+    const user = this.getCurrentUser();
+    if (!user) return of(null as unknown as User);
+    user.name = name;
+    user.email = email;
+    this.saveUsers();
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+    this.currentUserSubject.next(user);
+    return of(user);
+  }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<boolean> {
+    const user = this.getCurrentUser();
+    if (!user) return of(false);
+    if (user.password !== this.encodePassword(oldPassword)) return of(false);
+    user.password = this.encodePassword(newPassword);
+    this.saveUsers();
+    return of(true);
   }
 }
