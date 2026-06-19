@@ -9,7 +9,12 @@
 
 .main-content {
   flex: 1;
-  padding-bottom: 72px;
+  padding-bottom: 64px;
+
+  @include desktop {
+    padding-top: 52px;
+    padding-bottom: 0;
+  }
 }
 
 .bottom-nav {
