@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlbumService } from '../../../core/services/album.service';
-import { AuthService } from '../../../core/services/auth.service';
 import { Album } from '../../../core/models/album.model';
 import { ViewToggleComponent, ViewMode } from '../../../shared/components/view-toggle/view-toggle.component';
 
@@ -22,8 +21,7 @@ export class AlbumListComponent implements OnInit {
   newAlbumDesc = '';
 
   constructor(
-    private albumService: AlbumService,
-    private authService: AuthService
+    private albumService: AlbumService
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +30,7 @@ export class AlbumListComponent implements OnInit {
 
   createAlbum(): void {
     if (!this.newAlbumName.trim()) return;
-    const user = this.authService.getCurrentUser();
-    if (!user) return;
-    this.albumService.createAlbum(this.newAlbumName, this.newAlbumDesc, user)
+    this.albumService.createAlbum(this.newAlbumName, this.newAlbumDesc)
       .subscribe(() => {
         this.showCreateDialog = false;
         this.newAlbumName = '';

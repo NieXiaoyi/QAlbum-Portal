@@ -33,6 +33,7 @@ export class TrashComponent implements OnInit {
 
   restoreItem(id: string): void {
     this.trashService.restoreItem(id).subscribe(photo => {
+      if (!photo) return;
       this.photoService.movePhotos([photo.id], photo.albumId).subscribe(() => this.ngOnInit());
     });
   }

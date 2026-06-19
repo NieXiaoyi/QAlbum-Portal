@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlbumService } from '../../../core/services/album.service';
 import { PhotoService } from '../../../core/services/photo.service';
-import { AuthService } from '../../../core/services/auth.service';
 import { Album } from '../../../core/models/album.model';
 
 @Component({
@@ -85,8 +84,7 @@ export class UploadDialogComponent {
 
   constructor(
     private albumService: AlbumService,
-    private photoService: PhotoService,
-    private authService: AuthService
+    private photoService: PhotoService
   ) {
     this.albumService.getAlbums().subscribe(a => {
       this.albums = a;
@@ -110,9 +108,8 @@ export class UploadDialogComponent {
   }
 
   onUpload(): void {
-    const user = this.authService.getCurrentUser();
-    if (!user || !this.selectedAlbumId) return;
-    this.photoService.uploadPhotos(this.selectedFiles, this.selectedAlbumId, user.id)
+    if (!this.selectedAlbumId) return;
+    this.photoService.uploadPhotos(this.selectedFiles, this.selectedAlbumId)
       .subscribe(() => {
         this.uploaded.emit();
         this.onClose();
