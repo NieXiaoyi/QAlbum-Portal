@@ -1,147 +1,50 @@
-/* =============================================
-   QAlbum - Global Styles
-   Warm Family Theme Photo Album Application
-   ============================================= */
-
-// -------- Theme Configuration --------
 @use 'styles/variables' as *;
 @use 'styles/mixins' as *;
 
-// -------- CSS Reset --------
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
+html, body {
+  height: 100%;
 }
 
 body {
   font-family: $font-family;
   font-size: $font-size-base;
-  line-height: 1.6;
   color: $color-text;
-  background-color: $color-bg;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-// -------- Typography --------
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-family;
-  font-weight: 700;
-  line-height: 1.2;
-  color: $color-text;
-}
-
-h1 { font-size: 32px; }
-h2 { font-size: 24px; }
-h3 { font-size: $font-size-xl; }
-h4 { font-size: $font-size-lg; }
-h5 { font-size: $font-size-md; }
-h6 { font-size: $font-size-base; }
-
-p {
-  margin-bottom: 16px;
+  background: $color-bg;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: $color-accent-dark;
   text-decoration: none;
-  transition: color 150ms ease;
-
-  &:hover {
-    color: $color-accent;
-    text-decoration: underline;
-  }
+  color: inherit;
 }
 
-// -------- Lists --------
-ul, ol {
-  list-style: none;
-}
-
-// -------- Images --------
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-// -------- Buttons (base reset) --------
 button {
-  font-family: inherit;
-  font-size: inherit;
   border: none;
   background: none;
   cursor: pointer;
-  outline: none;
-  color: inherit;
-}
-
-// -------- Inputs (base reset) --------
-input,
-textarea,
-select {
   font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  border: 1px solid $color-bg-subtle;
-  border-radius: $radius-md;
-  padding: 8px 16px;
-  background-color: $color-bg-card;
+}
+
+input {
+  font-family: inherit;
+  border: none;
   outline: none;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
-
-  &:focus {
-    border-color: $color-accent;
-    box-shadow: 0 0 0 3px rgba($color-accent, 0.2);
-  }
-
-  &::placeholder {
-    color: $color-text-muted;
-  }
 }
 
-// -------- Scrollbar Styling --------
+// Scrollbar
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
 }
-
 ::-webkit-scrollbar-track {
-  background: $color-bg-muted;
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: $color-text-muted;
-  border-radius: 9999px;
-
-  &:hover {
-    background: $color-text;
-  }
-}
-
-// -------- Utility Classes --------
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-
-.sr-only {
-  @include sr-only;
-}
-
-// -------- App Shell --------
-app-root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  background: $color-bg-muted;
+  border-radius: 2px;
 }

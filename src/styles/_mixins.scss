@@ -1,100 +1,33 @@
-// ============================================
-// QAlbum - Responsive Mixins
-// ============================================
-
 @use 'variables' as *;
 
-// -------- Media Query Mixins (mobile-first) --------
-
-/// Target small devices and up (mobile: 768px+)
-@mixin sm {
-  @media (min-width: $bp-mobile) {
+@mixin mobile {
+  @media (max-width: #{$bp-mobile - 1px}) {
     @content;
   }
 }
 
-/// Target medium devices and up (tablet: 1200px+)
-@mixin md {
+@mixin tablet {
+  @media (min-width: $bp-mobile) and (max-width: #{$bp-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
   @media (min-width: $bp-tablet) {
     @content;
   }
 }
 
-// -------- Responsive Grid Mixin --------
-
-/// Creates a responsive grid layout with configurable columns
-/// @param {Number} $min-column-width [280px] - Minimum width for each column
-/// @param {Number} $gap [16px] - Gap between grid items
-/// @param {String} $layout [auto-fill] - 'auto-fill' or 'auto-fit'
-@mixin responsive-grid($min-column-width: 280px, $gap: 16px, $layout: auto-fill) {
+@mixin responsive-grid($mobile-cols: 3, $tablet-cols: 5, $desktop-cols: 7) {
   display: grid;
-  grid-template-columns: repeat(#{$layout}, minmax($min-column-width, 1fr));
-  gap: $gap;
-}
+  grid-template-columns: repeat($mobile-cols, 1fr);
+  gap: 4px;
 
-// -------- Flexbox Helpers --------
-
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-// -------- Truncate Text --------
-
-@mixin truncate($lines: 1) {
-  @if $lines == 1 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  } @else {
-    display: -webkit-box;
-    -webkit-line-clamp: $lines;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  @include tablet {
+    grid-template-columns: repeat($tablet-cols, 1fr);
   }
-}
 
-// --------------
-
-/// Visually hidden but accessible to screen readers
-@mixin sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/// Apply a card-style container
-@mixin card($padding: 24px, $radius: $radius-lg) {
-  background-color: $color-bg-card;
-  border-radius: $radius;
-  box-shadow: $shadow-card;
-  padding: $padding;
-}
-
-/// Apply smooth hover lift effect
-@mixin hover-lift {
-  transition: transform 250ms ease, box-shadow 250ms ease;
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-elevated;
+  @include desktop {
+    grid-template-columns: repeat($desktop-cols, 1fr);
   }
 }
