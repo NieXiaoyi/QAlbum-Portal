@@ -1,77 +1,71 @@
-<div class="settings-page">
-  <div class="space-card">
-    <div class="space-avatar">👨‍👩‍👧</div>
-    <div class="space-info">
-      <div class="space-name">我们的家</div>
-      <div class="space-meta" *ngIf="currentUser">
-        {{ currentUser.role === 'admin' ? '管理员' : '成员' }} · {{ users.length }} 位成员 · {{ totalPhotos }} 张照片
-      </div>
+<div class="settings-page" *ngIf="currentUser">
+  <div class="user-card">
+    <div class="user-avatar">{{ currentUser.name[0] }}</div>
+    <div class="user-info">
+      <div class="user-name">{{ currentUser.name }}</div>
+      <div class="user-email">{{ currentUser.email }}</div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">成员管理</div>
-
-    <div class="menu-item" (click)="showMemberList = !showMemberList">
-      <span class="menu-icon">👥</span>
-      <span class="menu-label">所有成员</span>
-      <span class="menu-badge">{{ users.length }} 人</span>
-      <span class="menu-arrow">›</span>
-    </div>
-
-    <div class="menu-item approval" *ngIf="isAdmin" (click)="showApproval = !showApproval">
-      <span class="menu-icon">📩</span>
-      <span class="menu-label">审核申请</span>
-      <span class="menu-badge danger">{{ pendingUsers.length }} 条</span>
-      <span class="menu-arrow">›</span>
-    </div>
-  </div>
-
-  <div class="approval-list" *ngIf="showApproval && isAdmin">
-    <div class="approval-item" *ngFor="let user of pendingUsers">
-      <span class="user-name">{{ user.name }}</span>
-      <span class="user-email">{{ user.email }}</span>
-      <div class="approval-actions">
-        <button class="btn-approve" (click)="approve(user.id)">通过</button>
-        <button class="btn-reject" (click)="reject(user.id)">拒绝</button>
+    <div class="section-title">空间概览</div>
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-value">{{ totalAlbums }}</span>
+        <span class="stat-label">相册</span>
       </div>
-    </div>
-    <div class="empty-item" *ngIf="!pendingUsers.length">暂无待审核申请</div>
-  </div>
-
-  <div class="member-list" *ngIf="showMemberList">
-    <div class="member-item" *ngFor="let user of users">
-      <span class="member-avatar">{{ user.name[0] }}</span>
-      <div class="member-info">
-        <span class="member-name">{{ user.name }}</span>
-        <span class="member-role">{{ user.role === 'admin' ? '管理员' : '成员' }}</span>
+      <div class="stat-item">
+        <span class="stat-value">{{ totalPhotos }}</span>
+        <span class="stat-label">照片</span>
       </div>
-      <span class="member-status" [class.active]="user.status === 'active'">
-        {{ user.status === 'active' ? '已加入' : '待审核' }}
-      </span>
+      <div class="stat-item">
+        <span class="stat-value">{{ totalSize | fileSize }}</span>
+        <span class="stat-label">已用空间</span>
+      </div>
     </div>
   </div>
 
   <div class="section">
     <div class="section-title">设置</div>
 
-    <div class="menu-item">
+    <div class="menu-item" (click)="showProfileForm = !showProfileForm">
       <span class="menu-icon">👤</span>
       <span class="menu-label">个人资料</span>
       <span class="menu-arrow">›</span>
     </div>
 
-    <div class="menu-item">
+    <div class="menu-item" (click)="showPasswordForm = !showPasswordForm">
       <span class="menu-icon">🔑</span>
       <span class="menu-label">修改密码</span>
       <span class="menu-arrow">›</span>
     </div>
   </div>
 
+  <div class="inline-form" *ngIf="showProfileForm">
+    <input type="text" placeholder="姓名" [(ngModel)]="editName">
+    <input type="email" placeholder="邮箱" [(ngModel)]="editEmail">
+    <div class="form-actions">
+      <button class="btn-cancel" (click)="showProfileForm = false">取消</button>
+      <button class="btn-confirm" (click)="saveProfile()">保存</button>
+    </div>
+  </div>
+
+  <div class="inline-form" *ngIf="showPasswordForm">
+    <div class="success-msg" *ngIf="passwordSuccess">✅ 密码修改成功</div>
+    <div class="error-msg" *ngIf="passwordError">{{ passwordError }}</div>
+    <input type="password" placeholder="旧密码" [(ngModel)]="oldPassword">
+    <input type="password" placeholder="新密码" [(ngModel)]="newPassword">
+    <input type="password" placeholder="确认新密码" [(ngModel)]="confirmPassword">
+    <div class="form-actions">
+      <button class="btn-cancel" (click)="showPasswordForm = false">取消</button>
+      <button class="btn-confirm" (click)="changePassword()">修改</button>
+    </div>
+  </div>
+
   <div class="section logout-section">
     <div class="menu-item danger" (click)="logout()">
       <span class="menu-icon">🚪</span>
-      <span class="menu-label">退出云空间</span>
+      <span class="menu-label">退出登录</span>
     </div>
   </div>
 </div>
