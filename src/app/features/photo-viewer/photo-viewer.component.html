@@ -1,0 +1,17 @@
+<div class="viewer">
+  <div class="top-bar">
+    <button class="back-btn" (click)="goBack()">‹ 返回</button>
+    <span class="date">{{ photo?.uploadedAt | date:'yyyy 年 M 月 d 日' }}</span>
+    <div class="actions">
+      <button class="action-btn" (click)="deletePhoto()">🗑️</button>
+    </div>
+  </div>
+
+  <div class="image-container" *ngIf="photo">
+    <img [src]="photo.url" [alt]="photo.fileName">
+  </div>
+
+  <div class="bottom-bar" *ngIf="photo">
+    <span class="file-info">{{ photo.fileName }} · 来自「{{ albumName }}」</span>
+  </div>
+</div>
