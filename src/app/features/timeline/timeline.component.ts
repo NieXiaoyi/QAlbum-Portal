@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PhotoService } from '../../core/services/photo.service';
 import { AlbumService } from '../../core/services/album.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Photo } from '../../core/models/photo.model';
 import { UploadDialogComponent } from '../../shared/components/upload-dialog/upload-dialog.component';
 
@@ -22,12 +23,15 @@ interface PhotoGroup {
 export class TimelineComponent implements OnInit {
   photoGroups: PhotoGroup[] = [];
   totalPhotos = 0;
-  spaceName = '我们的家';
+  get spaceName(): string {
+    return this.authService.getCurrentUser()?.name + ' 的相册' || '我的相册';
+  }
   showUpload = false;
 
   constructor(
     private photoService: PhotoService,
     private albumService: AlbumService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
