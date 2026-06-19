@@ -1,0 +1,22 @@
+<div class="album-detail" *ngIf="album">
+  <div class="header">
+    <a class="back-btn" routerLink="/albums">‹ 返回</a>
+  </div>
+
+  <h2 class="album-title">{{ album.name }}</h2>
+  <p class="album-meta">{{ album.photoCount }} 张照片 · {{ album.createdAt | date:'yyyy 年 M 月' }}</p>
+
+  <div class="photo-grid">
+    <a
+      class="photo-item"
+      *ngFor="let photo of photos"
+      [routerLink]="['/photo', photo.id]"
+    >
+      <img [src]="photo.url" [alt]="photo.fileName" loading="lazy">
+    </a>
+  </div>
+
+  <div class="empty-state" *ngIf="!photos.length">
+    <p>这个相册还没有照片</p>
+  </div>
+</div>

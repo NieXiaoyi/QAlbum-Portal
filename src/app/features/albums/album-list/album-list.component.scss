@@ -1,0 +1,82 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.album-list-page { padding: 16px; max-width: 1200px; margin: 0 auto; }
+
+.header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+  h2 { font-size: $font-size-xl; font-weight: 700; color: $color-accent-dark; }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .create-btn {
+    width: 36px; height: 36px; border-radius: 12px; background: $color-accent;
+    color: white; font-size: 20px; font-weight: bold;
+  }
+}
+
+.list-mode { display: flex; flex-direction: column; gap: 10px; }
+.album-row {
+  display: flex; align-items: center; gap: 12px; padding: 10px;
+  background: $color-bg-card; border-radius: $radius-md; cursor: pointer;
+  &:hover { background: $color-bg-muted; }
+}
+.album-cover {
+  width: 56px; height: 56px; border-radius: $radius-sm; background: $color-bg-muted;
+  display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0;
+}
+.cover-placeholder { font-size: 24px; }
+.photo-badge {
+  position: absolute; bottom: 2px; right: 2px; background: rgba(0,0,0,0.4);
+  color: white; font-size: 10px; padding: 1px 5px; border-radius: 4px;
+}
+.album-info { flex: 1; min-width: 0; }
+.album-name { font-weight: 600; font-size: 14px; color: $color-text; }
+.album-meta { font-size: 11px; color: $color-text-muted; margin-top: 2px; }
+.delete-btn { font-size: 14px; opacity: 0.5; &:hover { opacity: 1; } }
+
+.grid-mode {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  @include tablet { grid-template-columns: repeat(3, 1fr); }
+  @include desktop { grid-template-columns: repeat(4, 1fr); }
+}
+.album-card {
+  border-radius: $radius-lg; overflow: hidden; background: $color-bg-card;
+  box-shadow: $shadow-card; cursor: pointer;
+  &:hover { box-shadow: $shadow-elevated; }
+}
+.card-cover {
+  aspect-ratio: 16/10; background: $color-bg-muted;
+  display: flex; align-items: center; justify-content: center; position: relative;
+  .cover-placeholder-lg { font-size: 36px; }
+  .photo-badge { position: absolute; bottom: 8px; right: 8px; }
+}
+.card-body { padding: 10px; }
+.card-name { font-weight: 600; font-size: 14px; color: $color-text; }
+.card-date { font-size: 11px; color: $color-text-muted; margin-top: 2px; }
+
+.create-card {
+  border-radius: $radius-lg; border: 2px dashed $color-bg-subtle;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 24px; color: $color-accent-dark; cursor: pointer; min-height: 140px;
+  .create-icon { font-size: 28px; margin-bottom: 4px; }
+  span { font-size: 13px; }
+}
+
+.empty-state { text-align: center; padding: 64px; color: $color-text-muted; p { color: $color-text; } }
+
+.dialog-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex;
+  align-items: center; justify-content: center; z-index: 1000;
+}
+.create-dialog {
+  background: $color-bg; border-radius: $radius-xl; padding: 24px; max-width: 320px; width: 90%;
+  h3 { font-size: 16px; margin-bottom: 16px; color: $color-text; text-align: center; }
+  input {
+    width: 100%; padding: 10px 12px; border-radius: $radius-sm;
+    border: 1px solid $color-bg-subtle; margin-bottom: 8px; font-size: 13px;
+    &:focus { border-color: $color-accent; }
+  }
+}
+.dialog-actions { display: flex; gap: 8px; margin-top: 12px; }
+.btn-cancel, .btn-confirm { flex: 1; padding: 10px; border-radius: $radius-sm; font-weight: 600; font-size: 13px; }
+.btn-cancel { background: $color-bg-muted; color: $color-text-muted; }
+.btn-confirm { background: $color-accent; color: white; }

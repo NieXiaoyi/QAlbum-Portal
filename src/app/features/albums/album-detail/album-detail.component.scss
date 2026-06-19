@@ -1,0 +1,25 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.album-detail { padding: 16px; max-width: 1200px; margin: 0 auto; }
+
+.header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+  .back-btn { color: $color-accent-dark; font-size: 14px; cursor: pointer; }
+}
+
+.album-title { font-size: $font-size-lg; font-weight: 700; color: $color-text; margin-bottom: 4px; }
+.album-meta { font-size: $font-size-sm; color: $color-text-muted; margin-bottom: 12px; }
+
+.photo-grid {
+  @include responsive-grid(3, 4, 6);
+}
+
+.photo-item {
+  aspect-ratio: 1; border-radius: $radius-sm; overflow: hidden;
+  background: $color-bg-muted; cursor: pointer;
+  img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s; }
+  img:hover { transform: scale(1.05); }
+}
+
+.empty-state { text-align: center; padding: 64px; p { color: $color-text-muted; margin-bottom: 12px; } }

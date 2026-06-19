@@ -1,0 +1,58 @@
+<div class="album-list-page">
+  <div class="header">
+    <h2>相册</h2>
+    <div class="header-actions">
+      <app-view-toggle [(mode)]="viewMode" />
+      <button class="create-btn" (click)="showCreateDialog = true">+</button>
+    </div>
+  </div>
+
+  <div class="list-mode" *ngIf="viewMode === 'list'">
+    <div class="album-row" *ngFor="let album of albums" [routerLink]="['/albums', album.id]">
+      <div class="album-cover">
+        <div class="cover-placeholder">📁</div>
+        <span class="photo-badge">{{ album.photoCount }}</span>
+      </div>
+      <div class="album-info">
+        <div class="album-name">{{ album.name }}</div>
+        <div class="album-meta">{{ album.createdAt | date:'yyyy 年 M 月' }} · {{ album.photoCount }} 张</div>
+      </div>
+      <button class="delete-btn" (click)="$event.stopPropagation(); deleteAlbum(album.id)">🗑️</button>
+    </div>
+  </div>
+
+  <div class="grid-mode" *ngIf="viewMode === 'grid'">
+    <div class="album-card" *ngFor="let album of albums" [routerLink]="['/albums', album.id]">
+      <div class="card-cover">
+        <div class="cover-placeholder-lg">📁</div>
+        <span class="photo-badge">{{ album.photoCount }} 张</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">{{ album.name }}</div>
+        <div class="card-date">{{ album.createdAt | date:'yyyy 年 M 月' }}</div>
+      </div>
+    </div>
+
+    <div class="create-card" (click)="showCreateDialog = true">
+      <div class="create-icon">+</div>
+      <span>创建相册</span>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!albums.length">
+    <p>还没有相册</p>
+    <span>点击 + 创建第一个相册</span>
+  </div>
+</div>
+
+<div class="dialog-overlay" *ngIf="showCreateDialog" (click)="showCreateDialog = false">
+  <div class="create-dialog" (click)="$event.stopPropagation()">
+    <h3>新建相册</h3>
+    <input type="text" placeholder="相册名称" [(ngModel)]="newAlbumName" class="name-input">
+    <input type="text" placeholder="描述（选填）" [(ngModel)]="newAlbumDesc" class="desc-input">
+    <div class="dialog-actions">
+      <button class="btn-cancel" (click)="showCreateDialog = false">取消</button>
+      <button class="btn-confirm" (click)="createAlbum()">创建</button>
+    </div>
+  </div>
+</div>
