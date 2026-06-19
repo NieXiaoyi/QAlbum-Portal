@@ -1,59 +1,105 @@
-# Qalbum
+# QAlbum - 家庭云相册
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.3.
+一款面向核心小家庭的云相册 Web 应用，支持桌面端和手机浏览器响应式访问。管理员创建云空间，家庭成员通过注册并经管理员审核后加入，共同管理和浏览家庭照片。
 
-## Development server
+## UI 设计概览
 
-To start a local development server, run:
+### 视觉风格 — 温暖家庭风
 
-```bash
-ng serve
+- **主色调：** 米白底色、暖色点缀（`#E8C9A0`、`#D4956A`）
+- **卡片样式：** 圆角设计，柔和阴影
+- **整体氛围：** 温馨、亲切、突出照片内容
+
+### 页面结构
+
+```
+底部导航栏（移动端）/ 顶部导航栏（桌面端）
+┌──────────┬──────────┬──────┬────────┐
+│ 📷 时光轴 │ 📂 相册  │ 🗑️ 回收站 │ 👤 设置 │
+└──────────┴──────────┴──────┴────────┘
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 页面功能
 
-## Code scaffolding
+#### 📷 时光轴（首页）
+按时间倒序展示全部照片，年月分组，响应式网格（移动端 3 列，桌面端 6 列+）。顶部有搜索和上传入口。
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+#### 📂 相册
+支持**列表模式**和**平铺模式**一键切换，用户偏好自动保存。
+- **列表模式：** 一行一个相册，左封面右信息，适合移动端滑动浏览
+- **平铺模式：** 卡片式大图展示，适合桌面端
 
-```bash
-ng generate component component-name
+每个相册可查看详情，照片以网格展示，点击进入大图。
+
+#### 🗑️ 回收站
+已删除的照片和相册进入回收站，**30 天保留期**，显示自动清理倒计时。支持单条恢复、批量恢复、清空回收站（需二次确认）。
+
+#### 👤 设置 / 成员管理
+- 云空间信息卡（名称、成员数、照片总数）
+- **成员列表：** 查看所有成员及其角色
+- **审核申请：** 管理员可审批新成员注册（通过/拒绝）
+- 个人资料、修改密码、退出云空间
+
+### 角色权限
+
+| 操作 | 管理员 | 普通成员 |
+|------|--------|----------|
+| 审核成员加入 | ✅ | ❌ |
+| 创建/删除相册 | ✅ | ✅ |
+| 删除任意内容 | ✅ | ✅ |
+| 上传/移动照片 | ✅ | ✅ |
+| 使用回收站 | ✅ | ✅ |
+| 管理云空间设置 | ✅ | ❌ |
+
+### 照片交互流程
+
+```
+📸 上传：点击 + → 选择照片（多选/拖拽）→ 选择目标相册 → 上传
+↕ 移动：选择照片 → 点击移动 → 选择目标相册 → 确认
+🗑️ 删除：选择照片 → 删除 → 进入回收站 → 30 天内可恢复
+🖼️ 查看：点击照片 → 深色背景大图 → 左右滑动浏览
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+> 完整设计文档见 [`docs/superpowers/specs/2026-06-19-family-photo-album-ui-design.md`](docs/superpowers/specs/2026-06-19-family-photo-album-ui-design.md)
 
-```bash
-ng generate --help
+---
+
+## 技术栈
+
+- **框架：** Angular 22 + TypeScript 6.0
+- **样式：** SCSS（自定义主题变量 + 响应式 mixin）
+- **路由：** Angular Router（懒加载）
+- **测试：** Vitest
+- **持久化：** localStorage（当前，后续可替换为真实 API）
+
+## 架构
+
+```
+src/
+  app/
+    core/              数据模型、服务、守卫
+    shared/            共享组件和管道
+    features/          页面级组件（懒加载）
+  styles/
+    _variables.scss    主题变量
+    _mixins.scss       响应式 mixin
 ```
 
-## Building
+所有组件均为 **Standalone** 模式，无需 NgModule。数据层使用内存模拟 + localStorage 持久化，替换为真实 API 时只需替换 Service 实现。
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 开发
 
 ```bash
-ng test
+# 启动开发服务器（默认 http://localhost:4200）
+npm start
+
+# 构建生产版本
+npm run build
+
+# 运行测试
+npm test
 ```
 
-## Running end-to-end tests
+## 实现计划
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+参见 [`docs/superpowers/plans/2026-06-19-family-photo-album-implementation.md`](docs/superpowers/plans/2026-06-19-family-photo-album-implementation.md)
