@@ -22,6 +22,7 @@ export class AuthService {
       localStorage.removeItem('qalbum_albums');
       localStorage.removeItem('qalbum_photos');
       localStorage.removeItem('qalbum_trash');
+      localStorage.removeItem(CURRENT_USER_KEY);
       localStorage.setItem(STORAGE_VERSION_KEY, String(STORAGE_VERSION));
       return [];
     }
@@ -103,6 +104,7 @@ export class AuthService {
     if (user.password !== this.encodePassword(oldPassword)) return of(false);
     user.password = this.encodePassword(newPassword);
     this.saveUsers();
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
     return of(true);
   }
 }
